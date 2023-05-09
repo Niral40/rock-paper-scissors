@@ -8,7 +8,7 @@
     <body>
         <h1>Rock, Paper, Scissors!</h1>
 
-        <div class="input">
+        <div class="form">
             <label for="input">Select your fighter:</label>
             <select id="input" name="input">
                 <option value="clickMe" selected>-- Click me! --</option>
@@ -16,22 +16,31 @@
                 <option value="paper">Paper</option>
                 <option value="scissors">Scissors</option>
             </select>
+            <input type="submit" value="Submit!" class="submitInput">
         </div>
 
         <script>
-            const computerSelection = getComputerChoice();
+            let computerSelection = getComputerSelection();
+            let playerSelection;
+            const playerInput = document.querySelector('.input');
+            const submitInput = document.querySelector('.submitInput')
 
-            function getComputerChoice() {
+            function getComputerSelection() {
                 let myArray = [
                     "rock",
                     "paper",
                     "scissors"
                 ];
-
                 let computerSelection = myArray[Math.floor(Math.random()*myArray.length)];
-
                 return computerSelection;
             }
+
+            function getPlayerSelection() {
+                let playerSelection = document.getElementById("input").value;
+                return playerSelection;
+            }
+
+            submitInput.addEventListener('click', getPlayerSelection);
         </script>
     </body>
 </html>
