@@ -9,38 +9,48 @@
         <h1>Rock, Paper, Scissors!</h1>
 
         <div class="form">
-            <label for="input">Select your fighter:</label>
+            <label for="input">Select your weapon:</label>
             <select id="input" name="input">
                 <option value="clickMe" selected>-- Click me! --</option>
                 <option value="rock">Rock</option>
                 <option value="paper">Paper</option>
                 <option value="scissors">Scissors</option>
             </select>
-            <input type="submit" value="Submit!" class="submitInput">
+            <button onclick="getPlayerSelection()">Submit!</button>
         </div>
 
         <script>
-            let computerSelection = getComputerSelection();
+            let computerSelection;
             let playerSelection;
-            const playerInput = document.querySelector('.input');
-            const submitInput = document.querySelector('.submitInput')
 
-            function getComputerSelection() {
+            const weapons = {
+                rock: {weakTo: "paper", strongTo: "scissors"},
+                paper: {weakTo: "scissors", strongTo: "rock"}, 
+                scissors: {weakTo: "rock", strongTo: "paper"}
+            }
+
+            function getPlayerSelection() {
+                playerSelection = document.getElementById("input").value;
+                playRound(playerSelection, computerSelection);
+            }
+
+            
+
+            function playRound(playerSelection, computerSelection) {
                 let myArray = [
                     "rock",
                     "paper",
                     "scissors"
                 ];
-                let computerSelection = myArray[Math.floor(Math.random()*myArray.length)];
-                return computerSelection;
-            }
-
-            function getPlayerSelection() {
-                let playerSelection = document.getElementById("input").value;
-                return playerSelection;
-            }
-
-            submitInput.addEventListener('click', getPlayerSelection);
+                computerSelection = myArray[Math.floor(Math.random()*myArray.length)];
+                if (weapons[playerSelection].strongTo === computerSelection) {
+                    alert(`The computer selected ${computerSelection}. ${playerSelection} beats ${computerSelection}! You won!`);
+                } else if (weapons[playerSelection].weakTo === computerSelection) {
+                    alert(`The computer selected ${computerSelection}. ${computerSelection} beats ${playerSelection}! You lost!`);
+                } else {
+                    alert(`The computer selected ${computerSelection}. Both are equally matched! It's a tie!`);
+                }
+            } 
         </script>
     </body>
 </html>
